@@ -9,7 +9,7 @@ import com.xeon.javaclash.protocol.messages.client.home.GoHomeMessage;
 import com.xeon.javaclash.protocol.messages.client.login.KeepAliveMessage;
 import com.xeon.javaclash.protocol.messages.client.login.LoginMessage;
 import com.xeon.javaclash.protocol.messages.server.EndClientTurnMessage;
-import com.xeon.javaclash.protocol.messages.client.login.LoginMessage;
+import com.xeon.javaclash.protocol.messages.client.login ClientHelloMessage;
 
 public class LogicMagicMessageFactory {
 
@@ -47,5 +47,6 @@ public class LogicMagicMessageFactory {
         }
     }
 }
+
 
 
