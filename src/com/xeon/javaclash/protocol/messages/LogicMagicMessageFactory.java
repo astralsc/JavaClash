@@ -14,6 +14,8 @@ public class LogicMagicMessageFactory {
 
     public static PiranhaMessage createMessageByType(int id, byte[] payload, Connection connection){
         switch (id){
+            case 10100:
+                return new ClientHelloMessage(id, payload, connection);
             case 10101:
                 return new LoginMessage(id, payload, connection);
             case 10108:
@@ -44,3 +46,4 @@ public class LogicMagicMessageFactory {
         }
     }
 }
+
