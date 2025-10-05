@@ -19,7 +19,6 @@ public class ClientHelloMessage extends PiranhaMessage {
     public int DeviceType;
     public int AppStore;
 
-    @Override
     public void decrypt(){
       // already decrypted
     }
