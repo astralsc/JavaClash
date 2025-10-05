@@ -15,7 +15,7 @@ public class ClientHelloMessage extends PiranhaMessage {
     public int MajorVersion;
     public int MinorVersion;
     public int Build;
-    public string FingerprintSha;
+    public String FingerprintSha;
     public int DeviceType;
     public int AppStore;
 
