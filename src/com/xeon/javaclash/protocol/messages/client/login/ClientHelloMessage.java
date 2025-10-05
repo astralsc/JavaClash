@@ -4,9 +4,6 @@ import com.xeon.javaclash.core.Connection;
 import com.xeon.javaclash.core.Debugger;
 import com.xeon.javaclash.logic.Player;
 import com.xeon.javaclash.protocol.messages.PiranhaMessage;
-import com.xeon.javaclash.protocol.messages.server.home.OwnHomeDataMessage;
-import com.xeon.javaclash.protocol.messages.server.login.LoginFailedMessage;
-import com.xeon.javaclash.protocol.messages.server.login.LoginOkMessage;
 
 public class ClientHelloMessage extends PiranhaMessage {
     public ClientHelloMessage(int id, byte[] payload, Connection connection) {
@@ -23,7 +20,7 @@ public class ClientHelloMessage extends PiranhaMessage {
     public int AppStore;
 
     @Override
-    public void process(){
+    public void decrypt(){
       // already decrypted
     }
 
