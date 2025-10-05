@@ -34,7 +34,7 @@ public class ClientHelloMessage extends PiranhaMessage {
         MajorVersion = reader.readInt();
         MinorVersion = reader.readInt();
         Build = reader.readInt();
-        //FingerprintSha = reader.readInt();
+        FingerprintSha = reader.readString();
         DeviceType = reader.readInt();
         AppStore = reader.readInt();
     }
