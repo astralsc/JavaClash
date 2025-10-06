@@ -23,8 +23,14 @@ public class ClientHelloMessage extends PiranhaMessage {
     @Override
     public void process(){
         this.connection.player = Player.load(playerID);
-        this.connection.messaging.sendMessage(new LoginOkMessage(this.connection));
-        this.connection.messaging.sendMessage(new OwnHomeDataMessage(this.connection));
-        Player.saveData();
+        if (this.connection.player != null){
+            this.connection.messaging.sendMessage(new LoginOkMessage(this.connection));
+            this.connection.messaging.sendMessage(new OwnHomeDataMessage(this.connection));
+            Player.saveData();
+        } else {
+            LoginFailedMessage fail = new LoginFailedMessage(this.connection);
+            fail.reason = "Account not found. Please clear app data.";
+            this.connection.messaging.sendMessage(fail);
+        }
     }
 }
