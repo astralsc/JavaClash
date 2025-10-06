@@ -22,6 +22,7 @@ public class ClientHelloMessage extends PiranhaMessage {
 
     @Override
     public void process(){
+        // temporary thing until loading fix
         this.connection.player = Player.load(playerID);
         LoginFailedMessage fail = new LoginFailedMessage(this.connection);
         fail.reason = "Not implemented yet.";
