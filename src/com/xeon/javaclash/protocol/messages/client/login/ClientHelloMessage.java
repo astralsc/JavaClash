@@ -14,23 +14,34 @@ public class ClientHelloMessage extends PiranhaMessage {
     }
 
     private int playerID;
+    public int Protocol;
+    public int KeyVersion;
+    public int MajorVersion;
+    public int MinorVersion;
+    public int Build;
+    public String FingerprintSha;
+    public int DeviceType;
+    public int AppStore;
     @Override
     public void decode(){
         reader.readInt(); //HighID
         this.playerID = reader.readInt(); //LowID
+
+        Protocol = reader.readInt();
+        KeyVersion = reader.readInt();
+        MajorVersion = reader.readInt();
+        MinorVersion = reader.readInt();
+        Build = reader.readInt();
+        FingerprintSha = reader.readString();
+        DeviceType = reader.readInt();
+        AppStore = reader.readInt();
     }
 
     @Override
     public void process(){
         this.connection.player = Player.load(playerID);
-        if (this.connection.player != null){
-            this.connection.messaging.sendMessage(new LoginOkMessage(this.connection));
-            this.connection.messaging.sendMessage(new OwnHomeDataMessage(this.connection));
-            Player.saveData();
-        } else {
-            LoginFailedMessage fail = new LoginFailedMessage(this.connection);
-            fail.reason = "Account not found. Please clear app data.";
-            this.connection.messaging.sendMessage(fail);
-        }
+        LoginFailedMessage fail = new LoginFailedMessage(this.connection);
+        fail.reason = "Not implemented yet.";
+        this.connection.messaging.sendMessage(fail);
     }
 }
