@@ -4,38 +4,33 @@ import com.xeon.javaclash.core.Connection;
 import com.xeon.javaclash.core.Debugger;
 import com.xeon.javaclash.logic.Player;
 import com.xeon.javaclash.protocol.messages.PiranhaMessage;
+import com.xeon.javaclash.protocol.messages.server.home.OwnHomeDataMessage;
+import com.xeon.javaclash.protocol.messages.server.login.LoginFailedMessage;
+import com.xeon.javaclash.protocol.messages.server.login.LoginOkMessage;
 
 public class ClientHelloMessage extends PiranhaMessage {
     public ClientHelloMessage(int id, byte[] payload, Connection connection) {
         super(id, payload, connection);
     }
 
-    public int Protocol;
-    public int KeyVersion;
-    public int MajorVersion;
-    public int MinorVersion;
-    public int Build;
-    public String FingerprintSha;
-    public int DeviceType;
-    public int AppStore;
-
-    public void decrypt(){
-      // already decrypted
-    }
-
+    private int playerID;
     @Override
     public void decode(){
-        Protocol = reader.readInt();
-        KeyVersion = reader.readInt();
-        MajorVersion = reader.readInt();
-        MinorVersion = reader.readInt();
-        Build = reader.readInt();
-        FingerprintSha = reader.readString();
-        DeviceType = reader.readInt();
-        AppStore = reader.readInt();
+        reader.readInt(); //HighID
+        this.playerID = reader.readInt(); //LowID
     }
 
     @Override
     public void process(){
+        this.connection.player = Player.load(playerID);
+        if (this.connection.player != null){
+            this.connection.messaging.sendMessage(new LoginOkMessage(this.connection));
+            this.connection.messaging.sendMessage(new OwnHomeDataMessage(this.connection));
+            Player.saveData();
+        } else {
+            LoginFailedMessage fail = new LoginFailedMessage(this.connection);
+            fail.reason = "Account not found. Please clear app data.";
+            this.connection.messaging.sendMessage(fail);
+        }
     }
 }
