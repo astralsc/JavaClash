@@ -14,27 +14,10 @@ public class ClientHelloMessage extends PiranhaMessage {
     }
 
     private int playerID;
-    public int Protocol;
-    public int KeyVersion;
-    public int MajorVersion;
-    public int MinorVersion;
-    public int Build;
-    public String FingerprintSha;
-    public int DeviceType;
-    public int AppStore;
     @Override
     public void decode(){
         reader.readInt(); //HighID
         this.playerID = reader.readInt(); //LowID
-
-        Protocol = reader.readInt();
-        KeyVersion = reader.readInt();
-        MajorVersion = reader.readInt();
-        MinorVersion = reader.readInt();
-        Build = reader.readInt();
-        FingerprintSha = reader.readString();
-        DeviceType = reader.readInt();
-        AppStore = reader.readInt();
     }
 
     @Override
